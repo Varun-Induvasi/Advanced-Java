@@ -9,6 +9,13 @@ public class Employee {
 	private String createdAt;
 	private String mail;
 	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", job=" + job + ", salary=" + salary + ", dno=" + dno
+				+ ", createdAt=" + createdAt + ", mail=" + mail + ", password=" + password + "]";
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

@@ -3,7 +3,7 @@ import com.empapp.dto.Employee;
 import java.util.List;
 
 public interface EmployeeDAO {
-	void adddEmployee(Employee e);
+	void addEmployee(Employee e);
 	
 	Employee findById(Integer id);
 	

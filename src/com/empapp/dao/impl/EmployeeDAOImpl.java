@@ -5,6 +5,10 @@ import java.util.List;
 import com.empapp.dao.EmployeeDAO;
 import com.empapp.dto.Employee;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.empapp.utility.*;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -16,15 +20,57 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void adddEmployee(Employee e) {
+	public void addEmployee(Employee e) {
 		// TODO Auto-generated method stub
+		String query="insert into emp values (0,?,?,?,?,sysdate(),?,?)";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(query);
+			ps.setString(1,e.getName());
+			ps.setString(2, e.getJob());
+			ps.setDouble(3, e.getSalary());
+			ps.setInt(4, e.getDno());
+			ps.setString(5,e.getMail());
+			ps.setString(6,e.getPassword());
+			ps.executeUpdate();
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Failed to add data");
+			
+		}
+		
 		
 	}
 
 	@Override
 	public Employee findById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from emp where id=?";
+		Employee e=null;
+		try {
+			PreparedStatement ps=con.prepareStatement(query);
+			ps.setInt(1,id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				e=new Employee();
+				e.setId(rs.getInt("id"));
+				e.setName(rs.getString("name"));
+				e.setJob(rs.getString("job"));
+				e.setSalary(rs.getDouble("salary"));
+				e.setDno(rs.getInt("dno"));
+				e.setCreatedAt(rs.getString("Created_at"));
+				e.setMail(rs.getString("mail"));
+				e.setPassword(rs.getString("password"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Faileed to fetch data");
+		}
+		
+		return e;
 	}
 
 	@Override
