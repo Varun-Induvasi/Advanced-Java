@@ -1,6 +1,12 @@
 package com.empapp.dto;
 
 public class Dept {
+	@Override
+	public String toString() {
+		return "Dept [dno=" + dno + ", dname=" + dname + ", location=" + location + "]\n";
+	}
+
+
 	private Integer dno;
 	private String dname;
 	private String location;

@@ -76,18 +76,73 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<Employee> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Employee> res=new ArrayList<>();
+		
+		Employee e=null;
+		
+		String query="select * from emp";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(query);
+			ResultSet rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				e=new Employee();
+				e.setId(rs.getInt("id"));
+				e.setName(rs.getString("name"));
+				e.setJob(rs.getString("job"));
+				e.setSalary(rs.getDouble("salary"));
+				e.setDno(rs.getInt("dno"));
+				e.setCreatedAt(rs.getString("Created_at"));
+				e.setMail(rs.getString("mail"));
+				e.setPassword(rs.getString("password"));
+				res.add(e);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Failed to fetch data");
+		}
+				
+		return res;
 	}
 
 	@Override
 	public Employee findByMailandPassword(String mail, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		Employee e=null;
+		String query="select * from emp where mail=? and password=?";
+		try {
+			PreparedStatement ps=con.prepareStatement(query);
+			ps.setString(1, mail);
+			ps.setString(2, password);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				e=new Employee();
+				e.setId(rs.getInt("id"));
+				e.setName(rs.getString("name"));
+				e.setJob(rs.getString("job"));
+				e.setSalary(rs.getDouble("salary"));
+				e.setDno(rs.getInt("dno"));
+				e.setCreatedAt(rs.getString("Created_at"));
+				e.setMail(rs.getString("mail"));
+				e.setPassword(rs.getString("password"));
+				
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Failed to fetch data!");
+		}
+		
+		
+		return e;
 	}
 
 	@Override
 	public void updateEmployee(EmployeeDAO e) {
 		// TODO Auto-generated method stub
+		String query="";
 		
 	}
 

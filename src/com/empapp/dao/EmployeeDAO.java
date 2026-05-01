@@ -10,5 +10,5 @@ public interface EmployeeDAO {
 	List<Employee> findAll();
 	
 	Employee findByMailandPassword(String mail,String password);
-	void updateEmployee(EmployeeDAO e);
+	void updateEmployee(Employee e);
 }
